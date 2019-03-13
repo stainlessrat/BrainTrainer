@@ -6,13 +6,75 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
+        android:id="@+id/textViewOpinion2"
+        style="@style/myTextView"
+        android:background="@android:color/holo_orange_light"
+        android:onClick="onClickAnswer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewOpinion3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewOpinion0"
+        style="@style/myTextView"
+        android:background="@android:color/holo_blue_bright"
+        android:onClick="onClickAnswer"
+        app:layout_constraintBottom_toTopOf="@+id/textViewOpinion2"
+        app:layout_constraintEnd_toStartOf="@+id/textViewOpinion1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewOpinion3"
+        style="@style/myTextView"
+        android:background="@android:color/holo_purple"
+        android:onClick="onClickAnswer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textViewOpinion2" />
+
+    <TextView
+        android:id="@+id/textViewOpinion1"
+        style="@style/myTextView"
+        android:background="@android:color/holo_green_light"
+        android:onClick="onClickAnswer"
+        app:layout_constraintBottom_toTopOf="@+id/textViewOpinion3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textViewOpinion0" />
+
+    <TextView
+        android:id="@+id/textViewTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="@dimen/text_size_options"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textViewScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="@dimen/text_size_options"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewOpinion0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTimer" />
 </android.support.constraint.ConstraintLayout>
