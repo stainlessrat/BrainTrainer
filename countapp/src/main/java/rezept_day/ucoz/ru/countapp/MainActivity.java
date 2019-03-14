@@ -17,14 +17,16 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewOpinion1;
     private TextView textViewOpinion2;
     private TextView textViewOpinion3;
-    private ArrayList<TextView> options = new ArrayList<>();
+    private ArrayList<TextView> options = new ArrayList<>();//Массив кнопок с ответами
 
-    private String question;
-    private int rightAnswer;
-    private int rightAnswerPosition;
-    private boolean isPositive;
-    private int min = 5;
-    private int max = 30;
+    private String question;//переменная содержащая вопрос
+    private int rightAnswer;//переменная содержащая правильный ответ
+    private int rightAnswerPosition;//переменная содержащая кнопку с правильным ответом
+    private boolean isPositive;//переменная отвечающая выбор сложения или вычитания
+    private int min = 5;//минимально генерируемое число для примеров
+    private int max = 30;//максимально генерируемое число для примеров
+    private int countOfQuestions = 0;//Количество отвеченых вопросов
+    private int countOfRightAnswers = 0;//Количество правильных ответов
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
                 options.get(i).setText(Integer.toString(generateWrongAnswer()));
             }
         }
+        String score = String.format("%s / %s", countOfQuestions, countOfRightAnswers);
+        textViewScore.setText(score);
     }
 
     public void onClickAnswer(View view) {
@@ -91,10 +95,12 @@ public class MainActivity extends AppCompatActivity {
         String answer = textView.getText().toString();//получаем текст с нажатой кнопки
         int choseAnswer = Integer.parseInt(answer);//Преобразуем к int, чтобы сравнить с правильным ответом
         if (choseAnswer == rightAnswer){
+            countOfRightAnswers++;//Если ответ правильный - увеличиваем счетчик правильных ответов
             Toast.makeText(this, "Верно", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "Неверно", Toast.LENGTH_SHORT).show();
         }
+        countOfQuestions++;//Не зависимо от правильности ответа - увеличиваем счетчик отвеченых вопросов
         playNext();//делаем перезапуск игры
     }
 }
