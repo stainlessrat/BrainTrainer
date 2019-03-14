@@ -1,5 +1,6 @@
 package rezept_day.ucoz.ru.countapp;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 gameOver = true;//по окончанию таймера останавливаем игру
+                Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
+                startActivity(intent);
             }
         };
         timer.start();

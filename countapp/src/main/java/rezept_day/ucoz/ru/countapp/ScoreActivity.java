@@ -1,4 +1,4 @@
-package rezept_day.ucoz.ru.braintrainer;
+package rezept_day.ucoz.ru.countapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
