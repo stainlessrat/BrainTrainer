@@ -1,5 +1,6 @@
 package rezept_day.ucoz.ru.countapp;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private int max = 30;//максимально генерируемое число для примеров
     private int countOfQuestions = 0;//Количество отвеченых вопросов
     private int countOfRightAnswers = 0;//Количество правильных ответов
+    private boolean gameOver = false;//Переменная проверяющая закончилась ли игра
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,20 @@ public class MainActivity extends AppCompatActivity {
         initUI();
 
         playNext();//Запускаем игру
+
+        //Создаем таймер
+        CountDownTimer timer = new CountDownTimer(6000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                textViewTimer.setText(getTime(millisUntilFinished));//Отображаем сколько осталось времени до конца игры
+            }
+
+            @Override
+            public void onFinish() {
+                gameOver = true;//по окончанию таймера останавливаем игру
+            }
+        };
+        timer.start();
     }
 
     private void initUI() {
@@ -91,16 +108,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickAnswer(View view) {
-        TextView textView = (TextView) view;
-        String answer = textView.getText().toString();//получаем текст с нажатой кнопки
-        int choseAnswer = Integer.parseInt(answer);//Преобразуем к int, чтобы сравнить с правильным ответом
-        if (choseAnswer == rightAnswer){
-            countOfRightAnswers++;//Если ответ правильный - увеличиваем счетчик правильных ответов
-            Toast.makeText(this, "Верно", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(this, "Неверно", Toast.LENGTH_SHORT).show();
+        if(!gameOver){//если игра не закончена
+            TextView textView = (TextView) view;
+            String answer = textView.getText().toString();//получаем текст с нажатой кнопки
+            int choseAnswer = Integer.parseInt(answer);//Преобразуем к int, чтобы сравнить с правильным ответом
+            if (choseAnswer == rightAnswer){
+                countOfRightAnswers++;//Если ответ правильный - увеличиваем счетчик правильных ответов
+                Toast.makeText(this, "Верно", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "Неверно", Toast.LENGTH_SHORT).show();
+            }
+            countOfQuestions++;//Не зависимо от правильности ответа - увеличиваем счетчик отвеченых вопросов
+            playNext();//делаем перезапуск игры
         }
-        countOfQuestions++;//Не зависимо от правильности ответа - увеличиваем счетчик отвеченых вопросов
-        playNext();//делаем перезапуск игры
+
+    }
+
+    private String getTime(long millis){//Преобразование миллисекунд в строковое представление минут и секунд
+        int seconds = (int)(millis / 1000);
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        return String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
     }
 }
